@@ -7,7 +7,7 @@ Sistema Operativo: Ubuntu 18.04.
 ROS. Versión según SO. Para 18.04, ROS Melodic.
 https://wiki.ros.org/melodic/Installation
 Cmake 3.0.0+.
-◦ Actualizar cmake con: $ sudo apt install cmake. Si la versión no es la más
+◦ Actualizar cmake con: sudo apt install cmake. Si la versión no es la más
 reciente, descargar desde la web: https://cmake.org/download/ y seguir los pasos
 del README para lograr la instalación.
 gcc 4.8.1+
@@ -37,13 +37,13 @@ sudo make install
 Instalación de Livox ROS Driver:
 2.1
 Instalar en una carpeta /src dentro de un workspace:
-$ git clone https://github.com/Livox-SDK/livox_ros_driver.git
+git clone https://github.com/Livox-SDK/livox_ros_driver.git
 2.2
 Compilar el paquete:
-$ source /opt/ros/$ROS_DISTRO/setup.sh
+source /opt/ros/$ROS_DISTRO/setup.sh
 2.3
 En el directorio del workspace, realizar:
-$ catkin_make
+catkin_make
 3.1
 $
 3.2
@@ -62,9 +62,9 @@ catkin_make
 4 Instalación de FAST-LIO:
 4.1
 Instalar en una carpeta /src dentro de un workspace:
-$ git clone https://github.com/hku-mars/FAST_LIO.git
-$ cd FAST_LIO
-$ git submodule update –init
+git clone https://github.com/hku-mars/FAST_LIO.git
+cd FAST_LIO
+git submodule update –init
 4.2
 Modificar en config el archivo mid360.yaml, y ponerle la matriz de
 rotación adecuada para la inclinación de 30 grados que tiene:
@@ -73,19 +73,19 @@ extrinsic_R: [ 0.86, 0, 0.5,
 -0.5, 0, 0.86]
 4.3
 En el directorio del workspace, realizar:
-$ catkin_make
+catkin_make
 1 Dependencias:
 1.1
-$ sudo apt install
+sudo apt install
 1.2
-$ sudo pip install
+sudo pip install
 1.3
-$ sudo pip install
+sudo pip install
 1.4
-$ sudo pip install
+sudo pip install
 1.4.1
 Si al hacer:
-$ python
+python
 >>>import open3d
 Pasos para la instalación de FAST LIO LOCALIZATION:
 ros-$ROS_DISTRO-ros-numpy
@@ -130,14 +130,14 @@ mapa creado con FAST_LIO sea el que se emplee para la localización.
 catkin_make
 Puesta en marcha FAST-LIO:
 En el directorio del workspace:
-$ source devel/setup.sh
-$ roslaunch fast_lio mapping_mid360.launch
-$ roslaunch livox_ros_driver2 msg_MID360.launch
+source devel/setup.sh
+roslaunch fast_lio mapping_mid360.launch
+roslaunch livox_ros_driver2 msg_MID360.launch
 Puesta en marcha FAST-LIO-LOCALIZATION:
 En el directorio del workspace:
-$ source devel/setup.sh
-$ roslaunch fast_lio_localization localization_mid360.launch
-$ roslaunch livox_ros_driver2 msg_MID360.launch
+source devel/setup.sh
+roslaunch fast_lio_localization localization_mid360.launch
+roslaunch livox_ros_driver2 msg_MID360.launch
 FAQ:
 1. No hay errores de compilación, pero no se muestra la nube de puntos en Rviz, ni se
 publican datos en el topic /livox/lidar.
@@ -147,7 +147,7 @@ ws_livox/src/livox_ros_driver2/config.
 Actualmente el archivo está configurado para que la dirección IP del host sea 192.168.1.5
 y la del LIDAR sea 192.168.1.196.
 2. Tras cambiar la configuración manual de la conexión por cable, la dirección IP de la
-conexión no se actualiza, y al hacer $ ping a la dirección no se transmiten los paquetes.
+conexión no se actualiza, y al hacer ping a la dirección no se transmiten los paquetes.
 Es necesario desconectar y reconectar usando el botón presente en la ventana de
 configuración de wired network tras aplicar los cambios.
 3. Problemas de instalación de open3d.
@@ -173,37 +173,37 @@ https://github.com/HViktorTsoi/FAST_LIO_LOCALIZATION/issues/32
 USO
 1.- Abrir Terminal y 5 pestañas.
 2.- En cada pestaña acceder al ordenador a bordo a través de la red de Optitrack:
-$ ssh grvc@YOUR.IP
+ssh grvc@YOUR.IP
 /////////////////////////////
 // .BASHRC MODIFICADO, NO HACE FALTA EL PASO 3:
 3.- Lanzar los siguientes comandos para poder conectar los cores de ROS (EN TODAS LAS
 PESTAÑAS DEL ORDENADOR A BORDO):
-$ export ROS_MASTER_URI=http://YOUR.IP
-$ export ROS_IP=YOUR.IP
+export ROS_MASTER_URI=http://YOUR.IP
+export ROS_IP=YOUR.IP
 // (ESTA DIRECCIÓN IP ES LA DE LA LATTEPANDA EN EL WIFI DE OPTITRACK)
 /////////////////////////////
 4.- En el ordenador a bordo hay que lanzar los siguientes comandos:
 // Envío de mensajes del LIDAR:
-$ roslaunch livox_ros_driver2 msg_MID360.launch
+roslaunch livox_ros_driver2 msg_MID360.launch
 // Paquete de localización. Se puede cambiar el mapa global con el argumento
 map:=/ruta/al/archivo.pcd
-$ roslaunch fast_lio_localization localization_mid360.launch
+roslaunch fast_lio_localization localization_mid360.launch
 // Publicar pose inicial, bien desde GCS con nodo mencionado en el punto 5, o con:
-$ rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
+rosrun fast_lio_localization publish_initial_pose.py 0 0 0 0 0 0
 // Nodo para traducir /Odometry a /mavros/vision_pose/pose
-$ rosrun pose_publisher pose_publisher_node
+rosrun pose_publisher pose_publisher_node
 // Lanzar mavros, es necesario dar permiso.
-$ sudo chmod 666 /dev/ttyUSB0
-$ roslaunch mavros apm3.launch
+sudo chmod 666 /dev/ttyUSB0
+roslaunch mavros apm3.launch
 // Para monitorizar los nodos.
-$ rostopic list
-$ rostopic echo nodo_de_interés
+rostopic list
+rostopic echo nodo_de_interés
 5.- En la GCS (Estación de Control de Tierra) hay que lanzar 2 comandos:
 // En todas las pestañas de la GCS, hay que lanzar:
-$ export ROS_MASTER_URI=http://GCS.IP
-$ export ROS_IP=GCS.IP
+export ROS_MASTER_URI=http://GCS.IP
+export ROS_IP=GCS.IP
 // (ESTA DIRECCIÓN IP ES LA DE MI GCS EN EL WIFI DE OPTITRACK)
 // PESTAÑA 1:
-$ roslaunch waypoint_publisher waypoint_publisher.launch
+roslaunch waypoint_publisher waypoint_publisher.launch
 // PESTAÑA 2:
-$ rosrun odom_to_global odom_to_global_node
+rosrun odom_to_global odom_to_global_node
