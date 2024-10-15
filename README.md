@@ -2,31 +2,22 @@
 All packages and modifications required to implement fast lio localization with a livox MID-360
 
 INSTALACIÓN
+
 Requisitos previos:
+
 Sistema Operativo: Ubuntu 18.04.
-ROS. Versión según SO. Para 18.04, ROS Melodic.
+
+ROS: Versión según SO. Para 18.04, ROS Melodic.
 https://wiki.ros.org/melodic/Installation
+
 Cmake 3.0.0+.
-◦ Actualizar cmake con: sudo apt install cmake. Si la versión no es la más
-reciente, descargar desde la web: https://cmake.org/download/ y seguir los pasos
-del README para lograr la instalación.
+Actualizar cmake con: sudo apt install cmake. Si la versión no es la más reciente, descargar desde la web: https://cmake.org/download/ y seguir los pasos del README para lograr la instalación.
+
 gcc 4.8.1+
-•
-•
-•
-•
+
 Pasos para la instalación de FAST LIO:
-1
-1.1
-$
-$
-$
-$
-$
-$
-2
-3
-Instalación de Livox SDK2:
+
+1 Instalación de Livox SDK2:
 Compilar e instalar Livox-SDK2:
 git clone https://github.com/Livox-SDK/Livox-SDK2.git
 cd ./Livox-SDK2/
@@ -34,24 +25,17 @@ mkdir build
 cd build
 cmake .. && make -j
 sudo make install
-Instalación de Livox ROS Driver:
-2.1
+
+2 Instalación de Livox ROS Driver:
 Instalar en una carpeta /src dentro de un workspace:
 git clone https://github.com/Livox-SDK/livox_ros_driver.git
-2.2
 Compilar el paquete:
 source /opt/ros/$ROS_DISTRO/setup.sh
-2.3
 En el directorio del workspace, realizar:
 catkin_make
-3.1
-$
-3.2
-$
-$
-3.3
-$
-Instalación de Livox ROS Driver2:
+
+
+3 Instalación de Livox ROS Driver2:
 Instalar en una carpeta /src dentro de un workspace:
 git clone https://github.com/Livox-SDK/livox_ros_driver2.git
 Compilar el paquete:
@@ -59,45 +43,39 @@ source /opt/ros/$ROS_DISTRO/setup.sh
 ./build.sh ROS1
 En el directorio del workspace, realizar:
 catkin_make
+
 4 Instalación de FAST-LIO:
-4.1
 Instalar en una carpeta /src dentro de un workspace:
 git clone https://github.com/hku-mars/FAST_LIO.git
 cd FAST_LIO
 git submodule update –init
-4.2
 Modificar en config el archivo mid360.yaml, y ponerle la matriz de
 rotación adecuada para la inclinación de 30 grados que tiene:
 extrinsic_R: [ 0.86, 0, 0.5,
 0, 1, 0,
 -0.5, 0, 0.86]
-4.3
+
 En el directorio del workspace, realizar:
 catkin_make
 1 Dependencias:
-1.1
-sudo apt install
-1.2
-sudo pip install
-1.3
-sudo pip install
-1.4
-sudo pip install
-1.4.1
-Si al hacer:
-python
-import open3d
 Pasos para la instalación de FAST LIO LOCALIZATION:
 ros-$ROS_DISTRO-ros-numpy
 --upgrade pip
 ipywidgets==7.6.3
 --user open3d==0.9
+sudo apt install
+sudo pip install
+sudo pip install
+sudo pip install
+Si al hacer:
+python
+import open3d
 Falla la importación de open3d, emplear:
 sudo -H pip install --user open3d==0.9
-2
-2.1
-2.2
-Instalación de FAST-LIO-LOCALIZATION:
+
+
+
+2 Instalación de FAST-LIO-LOCALIZATION:
 cd ~/$A_ROS_DIR$/src
 git clone https://github.com/HViktorTsoi/FAST_LIO_LOCALIZATION.git2.3
 2.4
