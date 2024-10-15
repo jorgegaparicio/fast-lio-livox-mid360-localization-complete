@@ -86,7 +86,7 @@ sudo pip install
 1.4.1
 Si al hacer:
 python
->>>import open3d
+import open3d
 Pasos para la instalación de FAST LIO LOCALIZATION:
 ros-$ROS_DISTRO-ros-numpy
 --upgrade pip
